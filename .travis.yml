@@ -1,0 +1,15 @@
+---
+language: ruby
+cache: bundler
+rvm:
+  - 2.6
+  - 2.7
+
+before_install: gem update --remote bundler
+install:
+  - bundle install --retry=3
+script:
+  - bundle exec rubocop
+
+notifications:
+  secure: moCBJwmAG2vExnxPnzaoewQoTVuqp/Dp5f2xn5ehvir7UMlyEkrezn2GOmG1gNZoNm9TmC8vh1WzJE9b2znT04NWdVbLsSvdyWR3LVqJUzshQvnQcKIjHO2XLgZ0Wrmiqny54f8qn+E1NZ0Km2zlHHDVAXdeBG7k1mvzoIp6vp79kWPQ/r9FIzS3oa44Z5ALn4H7MOR222UkfqUiiDPzgOTihP2TvZwwQULiehhPgHIDl6enwiv1vMaedkb9xkvDz9ee7QX0pApTUKs4IYUCDdPiwWDrlZ+/U3z3Z0rz8g2YTBsWwHr8M6q9IyctHmaeHkr4EJNQs+VhsIF1oSBszHOh6eSimuVl1+hYwrsnjme/sIO76XYQIjW/PXAqcEicv7ua4DbDrxfE3DMu7QFgHYnimgmqgBGeI5M10PP4cKf5/7l2vzcAAtpuwFAf/1pvQFQNQ3TYTwNaL1z14aHd1mLy0YrlKS4bNxe1C+z6ZimNpIHocxIjuyzCqktz0n6rBPVWVm6xTbxUlY0PtQkBqqxEO0KoUxW89v3Qitl/rABCKkwtwhs8nIlb6/ykVcNBnCqj6dW/7383IdsqILC/6wYtZRAJJ6L/DRh5PtbSbwkUGDsJyC+/lDiOEZ+uqXLQyUEMLeaDR1G4knVl6ZWspFVB9YFGqbptIieFs3YyfVM=
