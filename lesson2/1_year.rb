@@ -16,10 +16,7 @@ year = {
   nov: 30,
   dec: 31
 }
-# month30 = []
 
-# year.select { |k, v| month30.push(k) if v == 30 }
-# month30.each { |m| puts m }
 year.each do |month, days|
   puts month if days == 30
 end
