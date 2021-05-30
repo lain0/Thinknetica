@@ -31,13 +31,7 @@ class Train
     @type = type
     @cars = cars
     @speed = 0
-    @station = ''
-    @route = ''
   end
-
-  alias go= speed=
-  alias length cars
-  alias current_station station
 
   def stop
     @speed = 0
@@ -53,7 +47,7 @@ class Train
 
   def route(route)
     @route = route
-    @station = route.start_station
+    @station = route.stations.first
     @station.trains << self unless @station.trains.include? self
   end
 
@@ -81,7 +75,7 @@ class Train
     if next_station_id == station_id
       puts 'It\'s almost END station'
     else
-      puts "Next station is #{@route.stations[next_station_id].name}"
+      "Next station is #{@route.stations[next_station_id].name}"
     end
   end
 
@@ -89,7 +83,7 @@ class Train
     if prev_station_id == station_id
       puts 'We haven\'t even started yet'
     else
-      puts "Prev station is #{@route.stations[prev_station_id].name}"
+      "Prev station is #{@route.stations[prev_station_id].name}"
     end
   end
 
