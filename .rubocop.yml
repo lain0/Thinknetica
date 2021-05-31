@@ -1,7 +1,11 @@
 inherit_from: .rubocop_todo.yml
 
+require: rubocop-performance
+
 AllCops:
   NewCops: enable
+  Exclude:
+    - './lesson3/run.rb'
 
 Style/AsciiComments:
   Enabled: false

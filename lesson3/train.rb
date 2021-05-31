@@ -52,39 +52,27 @@ class Train
   end
 
   def move_next_station
-    if @route.stations.size > station_id + 1
-      @station.send_train(self)
-      @station = @route.stations[next_station_id]
-      @station.receive_train(self)
-    else
-      puts 'We are at the end point of Route'
-    end
+    return unless next_station
+
+    change_station(next_station_id)
   end
 
   def move_prev_station
-    if station_id.positive?
-      @station.send_train(self)
-      @station = @route.stations[prev_station_id]
-      @station.receive_train(self)
-    else
-      puts 'We haven\'t even started yet'
-    end
+    return unless prev_station
+
+    change_station(prev_station_id)
   end
 
   def next_station
-    if next_station_id == station_id
-      puts 'It\'s almost END station'
-    else
-      "Next station is #{@route.stations[next_station_id].name}"
-    end
+    return nil if next_station_id.nil?
+
+    @route.stations[next_station_id] if next_station_id != station_id
   end
 
   def prev_station
-    if prev_station_id == station_id
-      puts 'We haven\'t even started yet'
-    else
-      "Prev station is #{@route.stations[prev_station_id].name}"
-    end
+    return nil if prev_station_id.nil?
+
+    @route.stations[prev_station_id] if prev_station_id != station_id
   end
 
   private
@@ -94,18 +82,16 @@ class Train
   end
 
   def next_station_id
-    if @route.stations.size > station_id + 1
-      station_id + 1
-    else
-      station_id
-    end
+    station_id + 1 if @route.stations.size > station_id + 1
   end
 
   def prev_station_id
-    if station_id.positive?
-      station_id - 1
-    else
-      station_id
-    end
+    station_id - 1 if station_id.positive?
+  end
+
+  def change_station(station_id)
+    @station.send_train(self)
+    @station = @route.stations[station_id]
+    @station.receive_train(self)
   end
 end

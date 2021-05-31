@@ -16,12 +16,10 @@ class Route
 
   def add(station)
     @intermediate_stations << station
-    stations
   end
 
   def remove(station)
     @intermediate_stations.delete(station)
-    stations
   end
 
   def stations
