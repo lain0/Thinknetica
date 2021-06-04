@@ -6,6 +6,7 @@ AllCops:
   NewCops: enable
   Exclude:
     - './lesson3/run.rb'
+    - './lesson4/run.rb'
 
 Style/AsciiComments:
   Enabled: false

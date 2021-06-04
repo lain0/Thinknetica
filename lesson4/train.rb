@@ -22,14 +22,14 @@
 # @cars
 #
 class Train
-  TYPE = %i[passanger cargo].freeze
+  # TYPE = %i[passanger cargo].freeze
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
 
-  def initialize(number:, type:, cars:)
+  def initialize(number, type)
     @number = number
     @type = type
-    @cars = cars
+    @cars = []
     @speed = 0
   end
 
@@ -37,12 +37,12 @@ class Train
     @speed = 0
   end
 
-  def car_add
-    @cars += 1 if @speed.zero?
+  def car_add(car)
+    @cars.push(car) if @speed.zero? && @type == car.type && !@cars.include?(car)
   end
 
   def car_remove
-    @cars -= 1 if @speed.zero? && @cars.positive?
+    @cars.delete(car) if @speed.zero?
   end
 
   def route(route)
@@ -75,7 +75,7 @@ class Train
     @route.stations[prev_station_id] if prev_station_id != station_id
   end
 
-  private
+  protected  # has sub-classes
 
   def station_id
     @route.stations.index(@station)
