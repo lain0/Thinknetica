@@ -13,6 +13,7 @@ require_relative 'train_passenger'
 require_relative 'car'
 require_relative 'car_cargo'
 require_relative 'car_passenger'
+require_relative 'storage'
 require_relative 'menu'
 
 puts Menu::MESSAGE_WELCOME
@@ -20,5 +21,5 @@ puts Menu::MESSAGE_WELCOME
 loop do
   trap('INT') { exit(130) }         # quiet exit by Ctr^C
   m = Menu.new                      # m to break loop
-  break if %w[e у].include?(m.str)
+  break if %w[e у q й].include?(m.str)
 end

@@ -4,7 +4,6 @@ require_relative 'passenger'
 
 # CarPassenger
 class CarPassenger < Car
-  attr_reader :type
   include Passenger
   def initialize(number)
     @type = TYPE

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'storage'
 # Menu instance method for every Station/Route/Train
-class Menu
+class Menu < Storage
   MESSAGE_WELCOME = 'Welcome to Railway control'
   MESSAGE_MAIN = 'Press: "s" to create Station, "t" to control train, "r" to control routes, "c" to control cars, "l" to list all stations, trains and routes , "e" to exit, "h" for this help!'
   MESSAGE_TYPE = 'chose type: "c" for cargo or "p" for passenger'
@@ -20,21 +21,17 @@ class Menu
 
   MESSAGE_CAR_ADD_REMOVE = 'Press "a" or "r" to add or remove cars from Train'
 
-  @@stations = []
-  @@trains = []
-  @@routes = []
-
-  attr_reader :str # for exit from loop by 'e'
+  attr_reader :str # for exit from loop by 'e' or 'q'
 
   def initialize
     puts MESSAGE_MAIN
     @str = stty
-    menu(@str)
+    call
   end
 
-  def menu(char)
-    puts char
-    case char
+  def call
+    # puts @str
+    case @str
     when 's', 'ы'
       station_create
     when 'r', 'к'
@@ -66,10 +63,10 @@ class Menu
   def train_create
     type = type_select
     number = enter_number { 'for train' }
-    @@trains.push(Train.new(number, type))
-    # return @@trains.push(TrainCargo.new(number)) if type == Cargo::TYPE
+    # @@trains.push(Train.new(number, type))
+    return @@trains.push(TrainCargo.new(number)) if type == Cargo::TYPE
 
-    # return @@trains.push(TrainPassenger.new(number)) if type == Passenger::TYPE
+    return @@trains.push(TrainPassenger.new(number)) if type == Passenger::TYPE
   end
 
   def route_create
