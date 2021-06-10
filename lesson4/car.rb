@@ -2,6 +2,8 @@
 
 # Car
 class Car
+  attr_reader :type
+
   def initialize(number, type)
     @number = number
     @type = type

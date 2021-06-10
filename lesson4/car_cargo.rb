@@ -4,6 +4,7 @@ require_relative 'cargo'
 
 # CarCargo
 class CarCargo < Car
+  attr_reader :type
   include Cargo
   def initialize(number)
     @type = TYPE

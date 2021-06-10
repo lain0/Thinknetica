@@ -41,7 +41,7 @@ class Train
     @cars.push(car) if @speed.zero? && @type == car.type && !@cars.include?(car)
   end
 
-  def car_remove
+  def car_remove(car)
     @cars.delete(car) if @speed.zero?
   end
 
