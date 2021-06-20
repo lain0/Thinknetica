@@ -13,10 +13,7 @@ module Helper
 
     def intermitiate
       self - [self.first] - [self.last]
+      # self[1...-1]
     end
   end
-
-  # def puts_select
-  #   puts "press #{i} to select #{v} #{v.class}"
-  # end
 end
