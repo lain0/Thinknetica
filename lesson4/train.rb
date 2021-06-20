@@ -16,13 +16,7 @@
 # Может перемещаться между станциями, указанными в маршруте.
 # Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
-#
-# @number - random string
-# @type - cargo | passenger
-# @cars
-#
 class Train
-  # TYPE = %i[passanger cargo].freeze
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
 

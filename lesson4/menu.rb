@@ -1,27 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'storage'
+require_relative 'menu/helper'
+require_relative 'menu/messages'
+
 # Menu instance method for every Station/Route/Train
 class Menu < Storage
-  MESSAGE_WELCOME = 'Welcome to Railway control'
-  MESSAGE_MAIN = 'Press: "s" to create Station, "t" to control train, "r" to control routes, "c" to control cars, "l" to list all stations, trains and routes , "e" to exit, "h" for this help!'
-  MESSAGE_TYPE = 'chose type: "c" for cargo or "p" for passenger'
-  MESSAGE_NUMBER = 'Enter number '
-  MESSAGE_STATION_NAME = 'Enter the name of Station like Leningrad or Moscow'
-
-  MESSAGE_ROUTES_CONTROL = 'Press "c" to create route or "a" to add statoin or "r" to remove station'
-  MESSAGE_ROUTES_CREATE = 'Create Stations for new Route'
-  MESSAGE_ROUTES_ADD_REMOVE_STATIONS = 'Add/Remove stations from Route by a/r'
-
-  MESSAGE_TRAIN_NUMBER = 'Enter trains number'
-  MESSAGE_TRAIN_SELECT_MOVE = 'Select train to move'
-  MESSAGE_TRAIN_MOVE = 'Press b/f to move train back or forward from '
-  MESSAGE_TRAIN_MOVE_FAILED = 'No Route for Train'
-  MESSAGE_TRAIN_SET_ROUTE = ''
-
-  MESSAGE_CAR_ADD_REMOVE = 'Press "a" or "r" to add or remove cars from Train'
-
-  attr_reader :str # for exit from loop by 'e' or 'q'
+  include Messages
+  Array.include Helper::Array
+  attr_reader :str # for exit from main loop by 'e' or 'q'
 
   def initialize
     puts MESSAGE_MAIN
@@ -30,27 +17,20 @@ class Menu < Storage
   end
 
   def call
-    # puts @str
-    case @str
-    when 's', 'ы'
-      station_create
-    when 'r', 'к'
-      route_control
-    when 't', 'е'
-      train_create
-    when 'm', 'ь'
-      train_move
-    when 'p', 'з'
-      train_set_route
-    when 'a', 'ф'
-      train_car_add
-    when 'd', 'в'
-      train_car_remove
-    when 'l', 'д'
-      p "All Stations:=#{@@stations.length} #{@@stations}"
-      p "All Trains:=#{@@trains.length} #{@@trains}"
-      p "All Routes:=#{@@routes.length} #{@@routes}"
-    end
+    menu = {
+      's' => :station_create,
+      'r' => :route_create,
+      'c' => :route_control,
+      't' => :train_create,
+      'p' => :train_set_route,
+      'm' => :train_move,
+      'a' => :train_car_add,
+      'u' => :train_car_unhook,
+      'l' => :list,
+      'e' => :exit
+    }
+    menu.default = :new
+    send(menu[@str])
   end
 
   def station_create
@@ -61,12 +41,17 @@ class Menu < Storage
   end
 
   def train_create
+    puts yield if block_given?
     type = type_select
     number = enter_number { 'for train' }
-    # @@trains.push(Train.new(number, type))
-    return @@trains.push(TrainCargo.new(number)) if type == Cargo::TYPE
-
-    return @@trains.push(TrainPassenger.new(number)) if type == Passenger::TYPE
+    case type
+    when Cargo::TYPE
+      train = TrainCargo.new(number)
+    when Passenger::TYPE
+      train = TrainPassenger.new(number)
+    end
+    @@trains.push(train)
+    train
   end
 
   def route_create
@@ -83,60 +68,116 @@ class Menu < Storage
     if %w[c с].include?(str)
       route_create
     elsif %w[a ф].include?(str)
-      puts
-    elsif %w[r к].include?(str)
+      route = route_selected_or_create
+      route.add(station_create { 'as new intermediate station' })
+    elsif %w[d в].include?(str)
+      route = route_selected_or_create
+      p "route OK=> #{route}"
+      if route.stations.length == 2
+        return puts MESSAGE_ROUTES_REMOVE_STATIONS_FAILED
 
+      elsif route.stations.length > 2
+        station = route.stations[select_id_from_array(route.stations.intermitiate) + 1]
+        return route.remove(station)
+      end
     end
   end
 
-  def route_add_remove_stations
+  def train_set_route
+    train = train_selected_or_create
+    p train
+    p train.route(route_selected_or_create)
+    train
+  end
 
+  def train_move
+    train = train_set_route
+    puts "#{MESSAGE_TRAIN_MOVE} #{train.station}"
+    case stty
+    when 'n', 'т'
+      train.move_next_station
+      puts "#{MESSAGE_TRAIN_CURRENT_STATION} #{train.station.name}"
+    when 'p', 'з'
+      train.move_prev_station
+      puts "#{MESSAGE_TRAIN_CURRENT_STATION} #{train.station.name}"
+    end
+  end
+
+  def train_selected_or_create
+    return train_create { MESSAGE_TRAIN_CREATE } if @@trains.empty?
+
+    return @@trains[0] if @@trains.length == 1
+
+    puts "#{MESSAGE_TRAIN_SELECT} from #{@@trains}" # if @@trains.length > 1
+    @@trains[select_id_from_array(@@trains)]
+  end
+
+  def route_selected_or_create
+    return route_create { MESSAGE_ROUTES_CREATE } if @@routes.empty?
+
+    puts MESSAGE_ROUTES_CREATE_OR_SELECT
+    case stty
+    when 'c'
+      return route_create { MESSAGE_ROUTES_CREATE }
+
+    when 's'
+      route_id = select_id_from_array(@@routes)
+      @@routes[route_id]
+    end
+  end
+
+  def stations_select_or_create
+    return station_create { MESSAGE_STATION_NAME } if @@stations.empty?
+
+    @@stations[select_id_from_array(train.cars)]
+  end
+
+  def train_car_add
+    train_selected_or_create if @@trains.length.zero?
+    train = train_selected_or_create
+    return train.car_add(CarCargo.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Cargo::TYPE
+
+    return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Passenger::TYPE
+  end
+
+  def train_car_unhook
+    train = train_selected_or_create
+    if train.cars.length.zero?
+      return puts MESSAGE_CAR_UNHOOK_FAILED
+
+    else
+      car_id = select_id_from_array(train.cars)
+      train.cars.delete_at car_id
+    end
+  end
+
+  def new
+    Menu.new
+  end
+
+  private
+
+  def select_id_from_array(array)
+    loop do
+      array.iterator
+      str = stty
+      break str.to_i if array.a_to_h[str.to_i]
+    end
+  end
+
+  def enter_number
+    puts "#{MESSAGE_NUMBER} #{yield if block_given?}"
+    gets.strip.to_i
   end
 
   def type_select
     puts MESSAGE_TYPE
     str = stty
     if %w[c с].include?(str)
-      type = Cargo::TYPE
+      Cargo::TYPE
     elsif %w[p з].include?(str)
-      type = Passenger::TYPE
+      Passenger::TYPE
     end
-  end
-
-  def train_set_route
-    train_selected&.route(route_create)
-  end
-
-  def train_move
-    train = train_selected
-    return puts MESSAGE_TRAIN_MOVE_FAILED if @@trains == [] # | train.station == nil
-
-    puts "#{MESSAGE_TRAIN_MOVE} #{train.station}"
-
-  end
-
-  def train_selected
-    p @@trains.length
-    return @@trains[0] if @@trains.length == 1
-
-    puts "#{MESSAGE_TRAIN_SELECT_MOVE} from #{@@trains}" if @@trains > 1
-  end
-
-  def train_car_add
-    return if !train_selected
-
-    p ">#{train_selected}<"
-    p train_selected.car_add(Car.new(enter_number { 'of cars' }, train_selected.type))
-  end
-
-  def train_car_remove
-    p train = train_selected.car_remove(car)
-    train
-  end
-
-  def enter_number
-    puts "#{MESSAGE_NUMBER} #{yield if block_given?}"
-    gets.strip
   end
 
   def stty

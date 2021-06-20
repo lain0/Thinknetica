@@ -7,6 +7,7 @@ AllCops:
   Exclude:
     - './lesson3/run.rb'
     - './lesson4/run.rb'
+    - './lesson4/test.rb'
 
 Style/AsciiComments:
   Enabled: false

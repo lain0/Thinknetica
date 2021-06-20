@@ -16,10 +16,11 @@ require_relative 'car_passenger'
 require_relative 'storage'
 require_relative 'menu'
 
-puts Menu::MESSAGE_WELCOME
+EXIT_CHARS = %w[e у q й].freeze
 
+puts Menu::MESSAGE_WELCOME
 loop do
   trap('INT') { exit(130) }         # quiet exit by Ctr^C
   m = Menu.new                      # m to break loop
-  break if %w[e у q й].include?(m.str)
+  break if EXIT_CHARS.include?(m.str)
 end
