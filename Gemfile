@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 
 gem 'byebug'
 gem 'rubocop'
-gem 'rubocop-performance', require: false
+gem 'rubocop-performance'
+gem 'rubocop-rspec'
 
 
 group :test do

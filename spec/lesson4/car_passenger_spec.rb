@@ -3,12 +3,13 @@
 # require 'spec_helper'
 
 RSpec.describe CarPassenger, type: :model do
-  context 'class attr_reader && initializer works' do
+  context 'when class attr_reader && initializer works' do
     subject { described_class }
-    it { is_expected.to eq CarPassenger }
+
+    it { is_expected.to eq described_class }
 
     it 'attr_reader type exists && type works' do
-      car = CarPassenger.new(0)
+      car = described_class.new(0)
       expect(car.type).to eq(Passenger::TYPE)
     end
   end
