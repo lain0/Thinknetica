@@ -30,5 +30,10 @@ RSpec.describe Train, type: :model do
       train = described_class.new(0, 'passanger')
       expect(train.station).to eq(nil)
     end
+
+    it 'train is instance on Train' do
+      train = Train.new(0, 'passanger')
+      expect(train).to be_an_instance_of(described_class)
+    end
   end
 end
