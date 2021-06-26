@@ -11,7 +11,7 @@ irb-t:	## irb one file
 	irb -I . -r ./lesson3/train.rb
 
 graph:	## make graph shema for Classes and Modules used
-	rubrowser ./lesson4/ >./lesson4/graph.html
+	rubrowser ./lesson5/ >./lesson5/graph.html
 
 lesson4: #run lesson4 menu
 	./lesson4/mein.rb

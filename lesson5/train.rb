@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'modules/instance_counter'
+
 # class Train (Поезд):
 # Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество
 # вагонов, эти данные указываются при создании экземпляра класса
@@ -17,6 +19,7 @@
 # Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
+  include InstanceCounter
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
 
