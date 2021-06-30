@@ -5,7 +5,12 @@ module ManufacturerName
     base.extend ClassMethods
     base.include InstanceMethods
   end
+
   module ClassMethods
     attr_accessor :manufacturer_name
+  end
+
+  module InstanceMethods
+    puts 'test'
   end
 end

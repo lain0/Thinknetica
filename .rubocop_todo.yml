@@ -51,17 +51,6 @@ Style/ClassVars:
     - 'lesson4/storage.rb'
     - 'lesson5/storage.rb'
 
-# Offense count: 7
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lesson4/menu/helper.rb'
-    - 'lesson4/storage.rb'
-    - 'lesson5/menu/helper.rb'
-    - 'lesson5/modules/instance_counter.rb'
-    - 'lesson5/storage.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

@@ -3,13 +3,9 @@
 source 'https://rubygems.org'
 
 gem 'byebug'
+gem 'rspec', require: false
 gem 'rubocop'
-gem 'rubocop-performance'
+gem 'rubocop-performance', require: false
 gem 'rubocop-rspec'
-
-
-group :test do
-  gem 'rspec'
-  gem 'rubrowser', require: false
-  gem 'simplecov', require: false
-end
+gem 'rubrowser', require: false
+gem 'simplecov', require: false

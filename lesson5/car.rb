@@ -6,13 +6,12 @@ require_relative 'modules/manufacturer_name'
 # Car
 class Car
   attr_reader :type
+
   include InstanceCounter
-  # include ManufacturerName
+  include ManufacturerName
   def initialize(number, type)
-    super()
-    # register_instance
+    register_instance
     @number = number
     @type = type
   end
-
 end

@@ -43,13 +43,6 @@ module InstanceCounter
   #   end
   # end
 
-
-  def initialize
-    puts 'init from module'
-    register_instance
-    super
-  end
-
   module ClassMethods
     attr_reader :instances
 
@@ -61,35 +54,16 @@ module InstanceCounter
     #   @instances = value
     # end
 
-    def initialize
-      puts 'it works from ClassMethods'
-      register_instance
-      super
-    end
-
-    # protected
+    protected
 
     attr_writer :instances
   end
 
   module InstanceMethods
-    # puts '123 InstanceMethods'
     private
 
     def register_instance
       self.class.instances += 1
-    end
-
-    def self.initialize
-      puts 'it works from InstanceMethods'
-      register_instance
-      super
-    end
-
-    def initialize
-      puts 'it works from InstanceMethods'
-      register_instance
-      super
     end
   end
 end
