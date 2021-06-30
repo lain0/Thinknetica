@@ -17,6 +17,7 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
+    super()
   end
 
   def receive_train(train)
