@@ -10,8 +10,17 @@ AllCops:
     - './lesson3/run.rb'
     - './lesson4/run.rb'
     - './lesson4/test.rb'
+    - 'lesson5/test.rb'
 
 Style/AsciiComments:
   Enabled: false
 Style/Documentation:
   Enabled: false
+
+
+# needs for stprage implementation
+# Offense count: 6
+Style/ClassVars:
+  Exclude:
+    - 'lesson4/storage.rb'
+    - 'lesson5/storage.rb'
