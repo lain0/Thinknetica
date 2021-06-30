@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'modules/instance_counter'
+require_relative 'modules/manufacturer_name'
 
 # class Train (Поезд):
 # Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество
@@ -19,7 +20,6 @@ require_relative 'modules/instance_counter'
 # Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
-  include InstanceCounter
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
 
@@ -29,6 +29,8 @@ class Train
     @cars = []
     @speed = 0
   end
+
+  include InstanceCounter
 
   def stop
     @speed = 0
@@ -70,6 +72,10 @@ class Train
     return nil if prev_station_id.nil?
 
     @route.stations[prev_station_id] if prev_station_id != station_id
+  end
+
+  def self.find(number)
+    @@trains.find { |x| x.number == number }
   end
 
   protected  # has sub-classes
