@@ -5,14 +5,15 @@
 - [X] В классе Train создать метод класса find, который принимает номер поезда (указанный при его создании) и возвращает объект поезда по номеру или nil, если поезд с таким номером не найден.
 
 - [X] Создать модуль InstanceCounter, содержащий следующие методы класса и инстанс-методы, которые подключаются автоматически при вызове include в классе:
-- [X] [Методы класса:](https://stackoverflow.com/questions/45935120/class-instance-variable-initialize-in-extended-module)
-  - instances, который возвращает кол-во экземпляров данного класса
-- [X] Инстанс-методы:
-  - register_instance, который увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора. При этом данный метод не должен быть публичным.
-- [ ] Подключить этот модуль в классы поезда, маршрута и станции.
+- [X] Методы класса: instances, который возвращает кол-во экземпляров данного класса
+- [X] Инстанс-методы: register_instance, который увеличивает счетчик кол-ва экземпляров класса и который можно вызвать из конструктора. При этом данный метод не должен быть публичным.
+- [X] Подключить этот модуль в классы поезда, маршрута и станции.
 
 
 Примечание: инстансы подклассов могут считаться по отдельности, не увеличивая счетчик инстансев базового класса.
 
 [Initializing instance variables in Mixins](https://stackoverflow.com/questions/12586051/initializing-instance-variables-in-mixins)
 [Ruby: Adding things to initialize method through modules](https://stackoverflow.com/questions/13257919/ruby-adding-things-to-initialize-method-through-modules)
+
+
+https://stackoverflow.com/questions/45935120/class-instance-variable-initialize-in-extended-module

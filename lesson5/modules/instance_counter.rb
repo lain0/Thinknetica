@@ -8,11 +8,7 @@ module InstanceCounter
   end
 
   module ClassMethods
-    attr_reader :instances
-
-    protected
-
-    attr_writer :instances
+    attr_accessor :instances
   end
 
   module InstanceMethods

@@ -15,9 +15,9 @@ class Station
   attr_reader :name, :trains
 
   def initialize(name)
+    register_instance
     @name = name
     @trains = []
-    super()
   end
 
   def receive_train(train)

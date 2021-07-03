@@ -20,17 +20,17 @@ require_relative 'modules/manufacturer_name'
 # Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
+  include InstanceCounter
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
 
   def initialize(number, type)
+    register_instance
     @number = number
     @type = type
     @cars = []
     @speed = 0
   end
-
-  include InstanceCounter
 
   def stop
     @speed = 0
