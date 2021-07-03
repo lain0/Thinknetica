@@ -10,7 +10,9 @@ require_relative 'modules/instance_counter'
 # Может удалять промежуточную станцию из списка
 # Может выводить список всех станций по-порядку от начальной до конечной
 class Route
+  include InstanceCounter
   def initialize(stations)
+    register_instance
     @station_start = stations.first
     @station_end = stations.last
     @intermediate_stations = []

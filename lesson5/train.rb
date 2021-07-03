@@ -21,6 +21,7 @@ require_relative 'modules/manufacturer_name'
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
   include InstanceCounter
+  include ManufacturerName
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
 

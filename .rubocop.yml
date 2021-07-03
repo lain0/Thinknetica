@@ -10,7 +10,7 @@ AllCops:
     - './lesson3/run.rb'
     - './lesson4/run.rb'
     - './lesson4/test.rb'
-    - 'lesson5/test.rb'
+    - './lesson5/test.rb'
 
 Style/AsciiComments:
   Enabled: false
@@ -24,3 +24,4 @@ Style/ClassVars:
   Exclude:
     - 'lesson4/storage.rb'
     - 'lesson5/storage.rb'
+    - 'lesson5/station.rb'

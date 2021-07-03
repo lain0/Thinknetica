@@ -14,10 +14,17 @@ class Station
   # attr_accessor :trains
   attr_reader :name, :trains
 
+  @@stations = []
+
   def initialize(name)
     register_instance
     @name = name
     @trains = []
+    @@stations << self
+  end
+
+  def self.all
+    @@stations
   end
 
   def receive_train(train)
