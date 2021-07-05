@@ -25,3 +25,4 @@ Style/ClassVars:
     - 'lesson4/storage.rb'
     - 'lesson5/storage.rb'
     - 'lesson5/station.rb'
+    - 'lesson5/modules/instance_counter.rb'
