@@ -7,10 +7,8 @@ require:
 AllCops:
   NewCops: enable
   Exclude:
-    - './lesson3/run.rb'
-    - './lesson4/run.rb'
-    - './lesson4/test.rb'
-    - './lesson5/test.rb'
+    - './*/run.rb'
+    - './*/test.rb'
 
 Style/AsciiComments:
   Enabled: false
@@ -19,10 +17,18 @@ Style/Documentation:
 
 
 # needs for stprage implementation
-# Offense count: 6
 Style/ClassVars:
   Exclude:
-    - 'lesson4/storage.rb'
-    - 'lesson5/storage.rb'
-    - 'lesson5/station.rb'
-    - 'lesson5/modules/instance_counter.rb'
+    - '*/storage.rb'
+    - '*/station.rb'
+    - '*/modules/instance_counter.rb'
+
+# no need in initializer for this class
+Lint/MissingSuper:
+  Exclude:
+    - '*/menu.rb'
+
+# return is ok there
+Style/RedundantReturn:
+  Exclude:
+    - '*/menu.rb'

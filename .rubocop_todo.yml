@@ -6,11 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-Lint/MissingSuper:
-  Exclude:
-    - 'lesson4/menu.rb'
-    - 'lesson5/menu.rb'
 
 # Offense count: 2
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
@@ -31,23 +26,13 @@ Metrics/MethodLength:
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Exclude:
-    - 'lesson4/menu.rb'
-    - 'lesson5/menu.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lesson4/menu.rb'
-    - 'lesson5/menu.rb'
+    - '*/menu.rb'
 
 # Offense count: 8
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Exclude:
-    - 'lesson4/menu/helper.rb'
-    - 'lesson5/menu/helper.rb'
+    - '*/menu/helper.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
