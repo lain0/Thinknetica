@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'cargo'
+# require_relative 'cargo'
 
 # CarCargo
 class CarCargo < Car
-  include Cargo
+  # include Cargo
   def initialize(number)
-    @type = TYPE
+    @type = TYPES[1]
     super(number, @type)
   end
 end

@@ -1,7 +1,9 @@
 .env
 .idea/
 st.txt
+.session.vim
 .byebug_history
 coverage
 lesson4/run.rb
 lesson4/test.rb
+

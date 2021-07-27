@@ -2,6 +2,8 @@
 
 require_relative 'modules/instance_counter'
 require_relative 'modules/manufacturer_name'
+require_relative 'modules/types'
+require_relative 'modules/validations'
 
 # class Train (Поезд):
 # Имеет номер (произвольная строка) и тип (грузовой, пассажирский) и количество
@@ -20,10 +22,14 @@ require_relative 'modules/manufacturer_name'
 # Перемещение возможно вперед и назад, но только на 1 станцию за раз.
 # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута
 class Train
+  include Types
   include InstanceCounter
   include ManufacturerName
+  include Validations
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
+
+  NUMBER_FORMAT = /[A-Za-z\d]{3}-?[A-Za-z\d]{2}/i
 
   def initialize(number, type)
     register_instance
@@ -31,6 +37,7 @@ class Train
     @type = type
     @cars = []
     @speed = 0
+    validate!
   end
 
   def stop
