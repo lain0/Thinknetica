@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'passenger'
-
 # TrainPassenger
 class TrainPassenger < Train
-  include Passenger
   def initialize(number)
-    @type = TYPE
+    @type = TYPES[1]
     super(number, @type)
   end
 end

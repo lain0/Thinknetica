@@ -6,7 +6,7 @@
 class CarCargo < Car
   # include Cargo
   def initialize(number)
-    @type = TYPES[1]
+    @type = TYPES[0]
     super(number, @type)
   end
 end

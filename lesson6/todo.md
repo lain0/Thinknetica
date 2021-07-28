@@ -17,6 +17,7 @@
 Validate:
   - [X] Car number
   - [X] Car type
-  - [ ] Train number
-  - [ ] Train type
+  - [X] Train number
+  - [X] Train type
   - [ ] Station name
+  - [ ] Route

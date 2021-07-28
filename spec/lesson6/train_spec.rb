@@ -38,9 +38,17 @@ RSpec.describe Train, type: :model do
       expect(train.station).to eq(nil)
     end
 
+    it "#{described_class}.instance_methods should include methods #valid?" do
+      expect((described_class.instance_methods - Class.methods).to_set.superset?([:valid?].to_set)).to be_truthy
+    end
+
+    it "#{described_class}.instance_methods should include methods #validate! #validate_type #validate_number" do
+      expect((described_class.private_instance_methods - Class.methods)
+        .to_set.superset?([:validate!, :validate_number, :validate_type].to_set)).to be_truthy
+    end
   end
 
-  context 'when Validation number and type valid? true' do
+  context 'when #valid? number and type' do
     # subject { described_class }
     let(:train) { described_class.new('NU4-123', 'Passenger') }
 
@@ -58,32 +66,41 @@ RSpec.describe Train, type: :model do
     end
   end
 
-  context 'when Validation number or type are valid? false' do
+  context 'when Invalid' do
     # subject { described_class }
     # let(:train) { Train.new('NU-123', '') }
     describe '#valid?' do
-      it 'returns false' do
-        # expect(Train.new('NU4-123','InValidType').valid?).to be_falsy
-        expect(described_class.new('', 'Passenger').valid?).to be_falsy
-        expect(described_class.new('NU4-123', '').valid?).to be_falsy
-        #let(:train) { Train.new('NU-123', '') }
+      let(:train) { described_class.new('NU4-123', 'Passenger') }
+
+      it 'false if number not valid?' do
+        train.instance_variable_set(:@number, '123')
         # expect(train.valid?).to be_falsy
+        expect(train).not_to be_valid
+      end
+
+      it 'false if type not valid?' do
+        train.instance_variable_set(:@type, 'WrongType')
+        expect(train).not_to be_valid
       end
     end
+
     describe '#validate!' do
-      it 'fails when number type is empty' do
-        expect(described_class.new('NU4-123', '')).to be_falsy
+      it 'fails when type is empty' do
+        -> { described_class.new('NU4-123', '') }
+          .should raise_error(RuntimeError, "class Train initialize variable must include #{described_class::TYPES}")
       end
+
       it 'fails when type is wrong' do
-        # expect(Train.new('123').valid?).to eq(true)
-        # expect(train.valid?).to be_falsy
-        expect(described_class.new('NU4-123', 'InValidType')).to raise_error
+        -> { described_class.new('NU4-123', 'InValidType') }
+          .should raise_error(RuntimeError, "class Train initialize variableInValidType must include #{described_class::TYPES}")
       end
+
       it 'fails when number is empty' do
-        expect(described_class.new('', 'Passenger')).to be_falsy
+        -> { described_class.new('', 'Passenger') }.should raise_error(RuntimeError)
       end
+
       it 'fails when number format is wrong' do
-        expect(described_class.new('123', 'Passenger')).to be_falsy
+        -> { described_class.new('123', 'Passenger') }.should raise_error(RuntimeError)
       end
     end
   end
