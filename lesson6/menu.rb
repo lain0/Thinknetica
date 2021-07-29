@@ -45,9 +45,9 @@ class Menu < Storage
     type = type_select
     number = enter_number { 'for train' }
     case type
-    when Cargo::TYPE
+    when Train::TYPES[0]
       train = TrainCargo.new(number)
-    when Passenger::TYPE
+    when Train::TYPES[1]
       train = TrainPassenger.new(number)
     end
     @@trains.push(train)
@@ -135,9 +135,9 @@ class Menu < Storage
   def train_car_add
     train_selected_or_create if @@trains.length.zero?
     train = train_selected_or_create
-    return train.car_add(CarCargo.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Cargo::TYPE
+    return train.car_add(CarCargo.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[0]
 
-    return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Passenger::TYPE
+    return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[1]
   end
 
   def train_car_unhook
@@ -167,16 +167,17 @@ class Menu < Storage
 
   def enter_number
     puts "#{MESSAGE_NUMBER} #{yield if block_given?}"
-    gets.strip.to_i
+    gets.strip.to_str
   end
 
+  # TYPES the same for car and Train
   def type_select
     puts MESSAGE_TYPE
     str = stty
     if %w[c с].include?(str)
-      Cargo::TYPE
+      Train::TYPES[0]
     elsif %w[p з].include?(str)
-      Passenger::TYPE
+      Train::TYPES[1]
     end
   end
 

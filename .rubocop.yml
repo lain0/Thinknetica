@@ -9,6 +9,8 @@ AllCops:
   Exclude:
     - './*/run.rb'
     - './*/test.rb'
+    - './*.rb'
+    - './st'
 
 Style/AsciiComments:
   Enabled: false

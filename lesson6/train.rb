@@ -29,7 +29,7 @@ class Train
   attr_accessor :speed
   attr_reader :cars, :station, :number, :type
 
-  NUMBER_FORMAT = /[A-Za-z\d]{3}-?[A-Za-z\d]{2}/i
+  NUMBER_FORMAT = /[A-Za-z\d]{3}-?[A-Za-z\d]{2}/i.freeze
 
   def initialize(number, type)
     register_instance

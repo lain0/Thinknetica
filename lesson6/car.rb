@@ -11,7 +11,7 @@ class Car
   include Types
   attr_reader :type
 
-  NUMBER_FORMAT = /\d*/
+  NUMBER_FORMAT = /\d*/.freeze
 
   def initialize(number, type)
     @number = number

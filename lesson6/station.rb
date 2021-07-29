@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'modules/instance_counter'
+require_relative 'modules/validations'
 
 # class Station (Станция):
 # Имеет название, которое указывается при ее создании
@@ -11,8 +12,11 @@ require_relative 'modules/instance_counter'
 # из списка поездов, находящихся на станции).
 class Station
   include InstanceCounter
+  include Validations
   # attr_accessor :trains
   attr_reader :name, :trains
+
+  NAME_FORMAT = /^(.{1,10})$/.freeze
 
   @@stations = []
 
@@ -21,6 +25,7 @@ class Station
     @name = name
     @trains = []
     @@stations << self
+    validate!
   end
 
   def self.all

@@ -17,20 +17,23 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'simplecov'
-require_relative '../lesson4/train'
-require_relative '../lesson4/car'
-require_relative '../lesson4/car_cargo'
-require_relative '../lesson4/car_passenger'
-require_relative '../lesson4/storage'
-require_relative '../lesson4/menu/helper'
-require_relative '../lesson4/menu/messages'
+#Dir["../lesson6/*.rb"].each {|file| require_relative file }
+# p Dir["./lesson6/*.rb"]
+#require_relative '../lesson4/train'
+#require_relative '../lesson4/car'
+#require_relative '../lesson4/car_cargo'
+#require_relative '../lesson4/car_passenger'
+#require_relative '../lesson4/storage'
+#require_relative '../lesson4/menu/helper'
+#require_relative '../lesson4/menu/messages'
 
 # Dir[File.join(".", "**/*.rb")].each { |f| require f unless f[/^\.\/spec\//]}
 # p require_relative '../lesson4/*.rb'
 
 SimpleCov.start do
   # p add_group('Lesson3') { |src| src.filename =~ %r"^/lesson3/" }
-  add_group 'Lesson4', ['lesson4/*.rb', 'lesson4', '../../lesson4']
+  # add_group 'Lesson4', ['lesson4/*.rb', 'lesson4', '../../lesson4']
+  add_group 'Lesson6', ['lesson6/*.rb', 'lesson6', '../../lesson6']
 end
 require 'rspec'
 

@@ -52,29 +52,21 @@ RSpec.describe Train, type: :model do
     # subject { described_class }
     let(:train) { described_class.new('NU4-123', 'Passenger') }
 
-    describe '#valid?' do
-      it 'returns true' do
-        # expect(Train.new('123').valid?).to eq(true)
-        expect(train.valid?).to be_truthy
-      end
+    it '#valid? returns true' do
+      expect(train).to be_valid
     end
-    describe '#validate!' do
-      it 'returns true' do
-        # expect(Train.new('123').valid?).to eq(true)
-        expect(train.valid?).to be_truthy
-      end
+
+    it '#validate! returns true' do
+      expect(train).to be_valid
     end
   end
 
   context 'when Invalid' do
-    # subject { described_class }
-    # let(:train) { Train.new('NU-123', '') }
     describe '#valid?' do
       let(:train) { described_class.new('NU4-123', 'Passenger') }
 
       it 'false if number not valid?' do
         train.instance_variable_set(:@number, '123')
-        # expect(train.valid?).to be_falsy
         expect(train).not_to be_valid
       end
 
@@ -86,21 +78,21 @@ RSpec.describe Train, type: :model do
 
     describe '#validate!' do
       it 'fails when type is empty' do
-        -> { described_class.new('NU4-123', '') }
-          .should raise_error(RuntimeError, "class Train initialize variable must include #{described_class::TYPES}")
+        expect { described_class.new('NU4-123', '') }
+          .to raise_error(RuntimeError, "class Train initialize variable must include #{described_class::TYPES}")
       end
 
       it 'fails when type is wrong' do
-        -> { described_class.new('NU4-123', 'InValidType') }
-          .should raise_error(RuntimeError, "class Train initialize variableInValidType must include #{described_class::TYPES}")
+        expect { described_class.new('NU4-123', 'InValidType') }
+          .to raise_error(RuntimeError, "class Train initialize variableInValidType must include #{described_class::TYPES}")
       end
 
       it 'fails when number is empty' do
-        -> { described_class.new('', 'Passenger') }.should raise_error(RuntimeError)
+        expect { described_class.new('', 'Passenger') }.to raise_error(RuntimeError)
       end
 
       it 'fails when number format is wrong' do
-        -> { described_class.new('123', 'Passenger') }.should raise_error(RuntimeError)
+        expect { described_class.new('123', 'Passenger') }.to raise_error(RuntimeError)
       end
     end
   end
