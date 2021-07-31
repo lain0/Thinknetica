@@ -5,9 +5,12 @@ class Storage
   @@trains = []
   @@routes = []
 
+  def list1
+    puts "All Stations:=#{@@stations.length} #{@@stations}"
+    puts "All Trains:=#{@@trains.length} #{@@trains}"
+    puts "All Routes:=#{@@routes.length} #{@@routes}"
+  end
   def list
-    p "All Stations:=#{@@stations.length} #{@@stations}"
-    p "All Trains:=#{@@trains.length} #{@@trains}"
-    p "All Routes:=#{@@routes.length} #{@@routes}"
+    puts "All Stations:=#{@@stations.length} #{@@stations}\nAll Trains:=#{@@trains.length} #{@@trains}\nAll Routes:=#{@@routes.length} #{@@routes}"
   end
 end

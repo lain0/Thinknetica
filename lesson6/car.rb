@@ -18,13 +18,4 @@ class Car
     @type = type
     validate!
   end
-
-  # private
-
-  # def validate!
-  #   raise 'Number can\'t be nil' if @number.nil?
-  #   raise "class #{self.class} initialize vatiable#{self}Number must be integer" if @number =~ NUMBER_FORMAT
-  #   # raise 'tut===><<' if validates_numeric(@number)
-  #   true
-  # end
 end

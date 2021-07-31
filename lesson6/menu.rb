@@ -37,7 +37,11 @@ class Menu < Storage
     puts "#{MESSAGE_STATION_NAME} #{yield if block_given?}"
     station = Station.new(gets.strip)
     @@stations.push(station)
+    puts "Station #{station}#{MESSAGE_SUCCESSFULLY_CREATED}"
     station
+  rescue StandardError => e
+    puts e.message
+    station_create
   end
 
   def train_create
@@ -51,7 +55,11 @@ class Menu < Storage
       train = TrainPassenger.new(number)
     end
     @@trains.push(train)
+    puts "Train #{train}#{MESSAGE_SUCCESSFULLY_CREATED}"
     train
+  rescue StandardError => e
+    puts e.message
+    train_create
   end
 
   def route_create
@@ -59,6 +67,7 @@ class Menu < Storage
     route = Route.new([station_create { 'as station_start' },
                        station_create { 'as station_end' }])
     @@routes.push(route)
+    puts "Route #{route}#{MESSAGE_SUCCESSFULLY_CREATED}"
     route
   end
 
@@ -135,9 +144,13 @@ class Menu < Storage
   def train_car_add
     train_selected_or_create if @@trains.length.zero?
     train = train_selected_or_create
-    return train.car_add(CarCargo.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[0]
+    return train.car_add(CarCargo.new(enter_number { "#{MESSAGE_CAR_ADD_SET_ROUTE} in format: #{Car::NUMBER_FORMAT}" })) if train.type == Train::TYPES[0]
 
     return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[1]
+
+  rescue StandardError => e
+    puts e.message
+    train_car_add
   end
 
   def train_car_unhook
@@ -172,13 +185,16 @@ class Menu < Storage
 
   # TYPES the same for car and Train
   def type_select
-    puts MESSAGE_TYPE
+    puts "#{yield if block_given?}#{MESSAGE_TYPE}"
     str = stty
     if %w[c с].include?(str)
       Train::TYPES[0]
     elsif %w[p з].include?(str)
       Train::TYPES[1]
+    else
+      type_select { MESSAGE_TYPE_ERROR }
     end
+
   end
 
   def stty

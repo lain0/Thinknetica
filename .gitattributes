@@ -1,3 +1,5 @@
-lesson4/graph.html  linguist-generated
-lesson5/graph.html  linguist-generated
-lesson*/graph.html  linguist-generated
+# lesson4/graph.html  linguist-generated
+# lesson5/graph.html  linguist-generated
+# lesson*/graph.html  linguist-generated
+lesson*/graph.html  linguist-generated=true
+*.html -diff -merge
