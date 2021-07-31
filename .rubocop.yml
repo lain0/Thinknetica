@@ -11,6 +11,7 @@ AllCops:
     - './*/test.rb'
     - './*.rb'
     - './st'
+    - 'unused/*/*.rb'
 
 Style/AsciiComments:
   Enabled: false
@@ -34,3 +35,22 @@ Lint/MissingSuper:
 Style/RedundantReturn:
   Exclude:
     - '*/menu.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - '*/menu.rb'
+      # - '*/modules/help.rb'
+
+
+# Offense count: 4
+# Configuration parameters: MinBodyLength.
+Style/GuardClause:
+  Exclude:
+    - '*/menu.rb'
+
+# Offense count: 8
+# Cop supports --auto-correct.
+Style/RedundantSelf:
+  Exclude:
+    - '*/menu/helper.rb'
+

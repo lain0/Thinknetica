@@ -28,8 +28,9 @@ RSpec.describe Train, type: :model do
     end
 
     it 'type is included in ' do
-      expect(described_class::TYPES.include?(train.type)).to be_truthy
+      expect(described_class::TYPES).to include(train.type)
     end
+
     it 'speed should eq 0 ' do
       expect(train.speed).to eq(0)
     end
@@ -39,12 +40,12 @@ RSpec.describe Train, type: :model do
     end
 
     it "#{described_class}.instance_methods should include methods #valid?" do
-      expect((described_class.instance_methods - Class.methods).to_set.superset?([:valid?].to_set)).to be_truthy
+      expect((described_class.instance_methods - Class.methods).to_set).to be_superset([:valid?].to_set)
     end
 
     it "#{described_class}.instance_methods should include methods #validate! #validate_type #validate_number" do
       expect((described_class.private_instance_methods - Class.methods)
-        .to_set.superset?([:validate!, :validate_number, :validate_type].to_set)).to be_truthy
+        .to_set).to be_superset(%i[validate! validate_number validate_type].to_set)
     end
   end
 
@@ -52,11 +53,7 @@ RSpec.describe Train, type: :model do
     # subject { described_class }
     let(:train) { described_class.new('NU4-123', 'Passenger') }
 
-    it '#valid? returns true' do
-      expect(train).to be_valid
-    end
-
-    it '#validate! returns true' do
+    it '#valid? && validate! returns true' do
       expect(train).to be_valid
     end
   end
@@ -79,12 +76,12 @@ RSpec.describe Train, type: :model do
     describe '#validate!' do
       it 'fails when type is empty' do
         expect { described_class.new('NU4-123', '') }
-          .to raise_error(RuntimeError, "class Train initialize variable must include #{described_class::TYPES}")
+          .to raise_error(RuntimeError)
       end
 
       it 'fails when type is wrong' do
         expect { described_class.new('NU4-123', 'InValidType') }
-          .to raise_error(RuntimeError, "class Train initialize variableInValidType must include #{described_class::TYPES}")
+          .to raise_error(RuntimeError)
       end
 
       it 'fails when number is empty' do

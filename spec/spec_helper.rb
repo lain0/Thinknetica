@@ -17,7 +17,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'simplecov'
-#Dir["../lesson6/*.rb"].each {|file| require_relative file }
+# Dir["../lesson6/*.rb"].each {|file| require_relative file }
 # p Dir["./lesson6/*.rb"]
 # require_relative '../lesson4/train'
 # require_relative '../lesson4/car'

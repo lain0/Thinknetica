@@ -11,8 +11,8 @@ module Validations
       true
     rescue RuntimeError
       false
-    # rescue
-    #   false
+      # rescue
+      #   false
     end
 
     private
@@ -25,23 +25,17 @@ module Validations
     end
 
     def validate_number
-      raise "class #{self.class} initialize variable#{self} Number must not be blank" if @number.size < 1
-      if @number !~ self.class::NUMBER_FORMAT
-        raise "class #{self.class} initialize variable#{self.number} Number must be in format: #{self.class::NUMBER_FORMAT}"
-      end
+      raise "class #{self.class} Number #{self} must not be blank" if @number.empty?
+      raise "class #{self.class} Number #{number} must be in format: #{self.class::NUMBER_FORMAT}" unless self.class::NUMBER_FORMAT.match?(@number)
     end
 
     def validate_type
-      unless self.class::TYPES.include?(@type)
-        raise "class #{self.class} initialize variable#{self.type} must include #{self.class::TYPES}"
-      end
+      raise "class #{self.class} type #{type} must be one of #{self.class::TYPES}" unless self.class::TYPES.include?(@type)
     end
 
     def validate_name
-      raise "class #{self.class} initialize variable#{self} Name must not be blank" if @name.size < 1
-      if @name !~ self.class::NAME_FORMAT
-        raise "class #{self.class} @name=#{self.name} Name's length must be from 1 to 10 Chars"
-      end
+      raise "class #{self.class} initialize variable#{self} Name must not be blank" if @name.empty?
+      raise "class #{self.class} name #{name} length must be from 1 to 10 Chars" unless self.class::NAME_FORMAT.match?(@name)
     end
   end
 end

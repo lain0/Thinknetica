@@ -24,12 +24,12 @@ RSpec.describe Station, type: :model do
     end
 
     it "#{described_class}.instance_methods should include methods #valid?" do
-      expect((described_class.instance_methods - Class.methods).to_set.superset?([:valid?].to_set)).to be_truthy
+      expect((described_class.instance_methods - Class.methods).to_set).to be_superset([:valid?].to_set)
     end
 
     it "#{described_class}.instance_methods should include methods #validate! #validate_type #validate_number" do
       expect((described_class.private_instance_methods - Class.methods)
-        .to_set.superset?([:validate!, :validate_number, :validate_type, :validate_name].to_set)).to be_truthy
+        .to_set).to be_superset(%i[validate! validate_number validate_type validate_name].to_set)
     end
   end
 
@@ -37,11 +37,7 @@ RSpec.describe Station, type: :model do
     # subject { described_class }
     let(:station) { described_class.new('Leningrad') }
 
-    it '#valid? returns true' do
-      expect(station).to be_valid
-    end
-
-    it '#validate! returns true' do
+    it '#valid? && #validate! returns true' do
       expect(station).to be_valid
     end
   end

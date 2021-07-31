@@ -12,31 +12,17 @@
 Metrics/AbcSize:
   Max: 25
 
-# Offense count: 2
-# Configuration parameters: CountComments, CountAsOne.
-Metrics/ClassLength:
-  Max: 154
-
 # Offense count: 6
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
 Metrics/MethodLength:
   Max: 17
-
-# Offense count: 4
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - '*/menu.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - '*/menu/helper.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Layout/LineLength:
-  Max: 287
+  Max: 289
+
+Metrics/BlockLength:
+  Max: 70

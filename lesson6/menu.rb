@@ -147,7 +147,6 @@ class Menu < Storage
     return train.car_add(CarCargo.new(enter_number { "#{MESSAGE_CAR_ADD_SET_ROUTE} in format: #{Car::NUMBER_FORMAT}" })) if train.type == Train::TYPES[0]
 
     return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[1]
-
   rescue StandardError => e
     puts e.message
     train_car_add
@@ -194,7 +193,6 @@ class Menu < Storage
     else
       type_select { MESSAGE_TYPE_ERROR }
     end
-
   end
 
   def stty
