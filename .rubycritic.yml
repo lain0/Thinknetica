@@ -1,0 +1,4 @@
+path: 'rubycritic' # Set path where report will be saved (tmp/rubycritic by default)
+paths: # Files to analyse.
+  - 'lesson6/'
+  - 'spec/'

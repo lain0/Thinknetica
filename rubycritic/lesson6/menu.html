@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../assets/vendor/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../assets/vendor/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../assets/vendor/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../overview.html"><img src="../assets/images/logo.png" alt="Ruby Critic Logo" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+      
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../simple_cov_index.html" class="project-nav-item coverage-index-nav"><i class="fa fa-umbrella"></i>Coverage</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2021-08-01 01:07:37 +0300'>2021-08-01 01:07:37 +0300</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>lesson6 /</small> menu.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating d big">
+              D
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">205</span><small> lines of codes</small></div>
+              <div><span class="metric">18</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">12.5</span><small> complexity/method</small></div>
+              <div><span class="metric">4</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">225.85</span><small> complexity</small></div>
+              <div><span class="metric">0</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                28
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code"># frozen_string_literal: true
+
+require_relative &#39;storage&#39;
+require_relative &#39;menu/helper&#39;
+require_relative &#39;menu/messages&#39;
+
+# Menu instance method for every Station/Route/Train
+class Menu &lt; Storage<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Methods.md" target="_blank"><b>TooManyMethods</b></a>        </span>      </div>      <span>Menu has at least 18 methods</span>          </div>  </li></ol>
+  include Messages
+  Array.include Helper::Array
+  attr_reader :str # for exit from main loop by &#39;e&#39; or &#39;q&#39;
+
+  def initialize
+    puts MESSAGE_MAIN
+    @str = stty
+    call
+  end
+
+  def call
+    menu = {
+      &#39;s&#39; =&gt; :station_create,
+      &#39;r&#39; =&gt; :route_create,
+      &#39;c&#39; =&gt; :route_control,
+      &#39;t&#39; =&gt; :train_create,
+      &#39;p&#39; =&gt; :train_set_route,
+      &#39;m&#39; =&gt; :train_move,
+      &#39;a&#39; =&gt; :train_car_add,
+      &#39;u&#39; =&gt; :train_car_unhook,
+      &#39;l&#39; =&gt; :list,
+      &#39;e&#39; =&gt; :exit
+    }
+    menu.default = :new
+    send(menu[@str])
+  end
+
+  def station_create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#station_create has approx 8 statements</span>          </div>  </li></ol>
+    puts &quot;#{MESSAGE_STATION_NAME} #{yield if block_given?}&quot;
+    station = Station.new(gets.strip)
+    @@stations.push(station)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@stations'</span>              <span>Locations:</span>                  <a href="menu.html#L39" class="js-smell-location">0</a>                  <a href="menu.html#L139" class="js-smell-location">1</a>                  <a href="menu.html#L141" class="js-smell-location">2</a>                  </div>  </li></ol>
+    puts &quot;Station #{station}#{MESSAGE_SUCCESSFULLY_CREATED}&quot;
+    station
+  rescue StandardError =&gt; e<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md" target="_blank"><b>UncommunicativeVariableName</b></a>        </span>      </div>      <span>Menu#station_create has the variable name 'e'</span>          </div>  </li></ol>
+    puts e.message
+    station_create
+  end
+
+  def train_create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#train_create has approx 12 statements</span>          </div>  </li></ol>
+    puts yield if block_given?
+    type = type_select
+    number = enter_number { &#39;for train&#39; }
+    case type
+    when Train::TYPES[0]
+      train = TrainCargo.new(number)
+    when Train::TYPES[1]
+      train = TrainPassenger.new(number)
+    end
+    @@trains.push(train)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@trains'</span>              <span>Locations:</span>                  <a href="menu.html#L57" class="js-smell-location">0</a>                  <a href="menu.html#L116" class="js-smell-location">1</a>                  <a href="menu.html#L118" class="js-smell-location">2</a>                  <a href="menu.html#L120" class="js-smell-location">3</a>                  <a href="menu.html#L121" class="js-smell-location">4</a>                  <a href="menu.html#L145" class="js-smell-location">5</a>                  </div>  </li></ol>
+    puts &quot;Train #{train}#{MESSAGE_SUCCESSFULLY_CREATED}&quot;
+    train
+  rescue StandardError =&gt; e<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md" target="_blank"><b>UncommunicativeVariableName</b></a>        </span>      </div>      <span>Menu#train_create has the variable name 'e'</span>          </div>  </li></ol>
+    puts e.message
+    train_create
+  end
+
+  def route_create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#route_create has approx 7 statements</span>          </div>  </li></ol>
+    puts MESSAGE_ROUTES_CREATE
+    route = Route.new([station_create { &#39;as station_start&#39; },
+                       station_create { &#39;as station_end&#39; }])
+    @@routes.push(route)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@routes'</span>              <span>Locations:</span>                  <a href="menu.html#L69" class="js-smell-location">0</a>                  <a href="menu.html#L125" class="js-smell-location">1</a>                  <a href="menu.html#L133" class="js-smell-location">2</a>                  <a href="menu.html#L134" class="js-smell-location">3</a>                  </div>  </li></ol>
+    puts &quot;Route #{route}#{MESSAGE_SUCCESSFULLY_CREATED}&quot;
+    route
+  end
+
+  def route_control<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>Menu#route_control has a flog score of 44</span>          </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#route_control has approx 11 statements</span>          </div>  </li></ol>
+    puts MESSAGE_ROUTES_CONTROL
+    str = stty
+    if %w[c с].include?(str)
+      route_create
+    elsif %w[a ф].include?(str)
+      route = route_selected_or_create
+      route.add(station_create { &#39;as new intermediate station&#39; })
+    elsif %w[d в].include?(str)
+      route = route_selected_or_create
+      p &quot;route OK=&gt; #{route}&quot;
+      if route.stations.length == 2<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#route_control calls 'route.stations' 4 times</span>              <span>Locations:</span>                  <a href="menu.html#L85" class="js-smell-location">0</a>                  <a href="menu.html#L88" class="js-smell-location">1</a>                  <a href="menu.html#L89" class="js-smell-location">2</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#route_control calls 'route.stations.length' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L85" class="js-smell-location">0</a>                  <a href="menu.html#L88" class="js-smell-location">1</a>                  </div>  </li></ol>
+        return puts MESSAGE_ROUTES_REMOVE_STATIONS_FAILED
+
+      elsif route.stations.length &gt; 2<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#route_control calls 'route.stations' 4 times</span>              <span>Locations:</span>                  <a href="menu.html#L85" class="js-smell-location">0</a>                  <a href="menu.html#L88" class="js-smell-location">1</a>                  <a href="menu.html#L89" class="js-smell-location">2</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#route_control calls 'route.stations.length' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L85" class="js-smell-location">0</a>                  <a href="menu.html#L88" class="js-smell-location">1</a>                  </div>  </li></ol>
+        station = route.stations[select_id_from_array(route.stations.intermitiate) + 1]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#route_control calls 'route.stations' 4 times</span>              <span>Locations:</span>                  <a href="menu.html#L85" class="js-smell-location">0</a>                  <a href="menu.html#L88" class="js-smell-location">1</a>                  <a href="menu.html#L89" class="js-smell-location">2</a>                  </div>  </li></ol>
+        return route.remove(station)
+      end
+    end
+  end
+
+  def train_set_route
+    train = train_selected_or_create
+    p train
+    p train.route(route_selected_or_create)
+    train
+  end
+
+  def train_move<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#train_move has approx 6 statements</span>          </div>  </li></ol>
+    train = train_set_route
+    puts &quot;#{MESSAGE_TRAIN_MOVE} #{train.station}&quot;<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_move calls 'train.station' 3 times</span>              <span>Locations:</span>                  <a href="menu.html#L104" class="js-smell-location">0</a>                  <a href="menu.html#L108" class="js-smell-location">1</a>                  <a href="menu.html#L111" class="js-smell-location">2</a>                  </div>  </li></ol>
+    case stty
+    when &#39;n&#39;, &#39;т&#39;
+      train.move_next_station
+      puts &quot;#{MESSAGE_TRAIN_CURRENT_STATION} #{train.station.name}&quot;<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_move calls 'puts "#{MESSAGE_TRAIN_CURRENT_STATION} #{train.station.name}"' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L108" class="js-smell-location">0</a>                  <a href="menu.html#L111" class="js-smell-location">1</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_move calls 'train.station' 3 times</span>              <span>Locations:</span>                  <a href="menu.html#L104" class="js-smell-location">0</a>                  <a href="menu.html#L108" class="js-smell-location">1</a>                  <a href="menu.html#L111" class="js-smell-location">2</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_move calls 'train.station.name' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L108" class="js-smell-location">0</a>                  <a href="menu.html#L111" class="js-smell-location">1</a>                  </div>  </li></ol>
+    when &#39;p&#39;, &#39;з&#39;
+      train.move_prev_station
+      puts &quot;#{MESSAGE_TRAIN_CURRENT_STATION} #{train.station.name}&quot;<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_move calls 'puts "#{MESSAGE_TRAIN_CURRENT_STATION} #{train.station.name}"' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L108" class="js-smell-location">0</a>                  <a href="menu.html#L111" class="js-smell-location">1</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_move calls 'train.station' 3 times</span>              <span>Locations:</span>                  <a href="menu.html#L104" class="js-smell-location">0</a>                  <a href="menu.html#L108" class="js-smell-location">1</a>                  <a href="menu.html#L111" class="js-smell-location">2</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_move calls 'train.station.name' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L108" class="js-smell-location">0</a>                  <a href="menu.html#L111" class="js-smell-location">1</a>                  </div>  </li></ol>
+    end
+  end
+
+  def train_selected_or_create
+    return train_create { MESSAGE_TRAIN_CREATE } if @@trains.empty?<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@trains'</span>              <span>Locations:</span>                  <a href="menu.html#L57" class="js-smell-location">0</a>                  <a href="menu.html#L116" class="js-smell-location">1</a>                  <a href="menu.html#L118" class="js-smell-location">2</a>                  <a href="menu.html#L120" class="js-smell-location">3</a>                  <a href="menu.html#L121" class="js-smell-location">4</a>                  <a href="menu.html#L145" class="js-smell-location">5</a>                  </div>  </li></ol>
+
+    return @@trains[0] if @@trains.length == 1<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@trains'</span>              <span>Locations:</span>                  <a href="menu.html#L57" class="js-smell-location">0</a>                  <a href="menu.html#L116" class="js-smell-location">1</a>                  <a href="menu.html#L118" class="js-smell-location">2</a>                  <a href="menu.html#L120" class="js-smell-location">3</a>                  <a href="menu.html#L121" class="js-smell-location">4</a>                  <a href="menu.html#L145" class="js-smell-location">5</a>                  </div>  </li></ol>
+
+    puts &quot;#{MESSAGE_TRAIN_SELECT} from #{@@trains}&quot; # if @@trains.length &gt; 1<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@trains'</span>              <span>Locations:</span>                  <a href="menu.html#L57" class="js-smell-location">0</a>                  <a href="menu.html#L116" class="js-smell-location">1</a>                  <a href="menu.html#L118" class="js-smell-location">2</a>                  <a href="menu.html#L120" class="js-smell-location">3</a>                  <a href="menu.html#L121" class="js-smell-location">4</a>                  <a href="menu.html#L145" class="js-smell-location">5</a>                  </div>  </li></ol>
+    @@trains[select_id_from_array(@@trains)]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@trains'</span>              <span>Locations:</span>                  <a href="menu.html#L57" class="js-smell-location">0</a>                  <a href="menu.html#L116" class="js-smell-location">1</a>                  <a href="menu.html#L118" class="js-smell-location">2</a>                  <a href="menu.html#L120" class="js-smell-location">3</a>                  <a href="menu.html#L121" class="js-smell-location">4</a>                  <a href="menu.html#L145" class="js-smell-location">5</a>                  </div>  </li></ol>
+  end
+
+  def route_selected_or_create<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#route_selected_or_create has approx 7 statements</span>          </div>  </li></ol>
+    return route_create { MESSAGE_ROUTES_CREATE } if @@routes.empty?<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@routes'</span>              <span>Locations:</span>                  <a href="menu.html#L69" class="js-smell-location">0</a>                  <a href="menu.html#L125" class="js-smell-location">1</a>                  <a href="menu.html#L133" class="js-smell-location">2</a>                  <a href="menu.html#L134" class="js-smell-location">3</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#route_selected_or_create calls 'route_create { MESSAGE_ROUTES_CREATE }' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L125" class="js-smell-location">0</a>                  <a href="menu.html#L130" class="js-smell-location">1</a>                  </div>  </li></ol>
+
+    puts MESSAGE_ROUTES_CREATE_OR_SELECT
+    case stty
+    when &#39;c&#39;
+      return route_create { MESSAGE_ROUTES_CREATE }<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#route_selected_or_create calls 'route_create { MESSAGE_ROUTES_CREATE }' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L125" class="js-smell-location">0</a>                  <a href="menu.html#L130" class="js-smell-location">1</a>                  </div>  </li></ol>
+
+    when &#39;s&#39;
+      route_id = select_id_from_array(@@routes)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@routes'</span>              <span>Locations:</span>                  <a href="menu.html#L69" class="js-smell-location">0</a>                  <a href="menu.html#L125" class="js-smell-location">1</a>                  <a href="menu.html#L133" class="js-smell-location">2</a>                  <a href="menu.html#L134" class="js-smell-location">3</a>                  </div>  </li></ol>
+      @@routes[route_id]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@routes'</span>              <span>Locations:</span>                  <a href="menu.html#L69" class="js-smell-location">0</a>                  <a href="menu.html#L125" class="js-smell-location">1</a>                  <a href="menu.html#L133" class="js-smell-location">2</a>                  <a href="menu.html#L134" class="js-smell-location">3</a>                  </div>  </li></ol>
+    end
+  end
+
+  def stations_select_or_create
+    return station_create { MESSAGE_STATION_NAME } if @@stations.empty?<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@stations'</span>              <span>Locations:</span>                  <a href="menu.html#L39" class="js-smell-location">0</a>                  <a href="menu.html#L139" class="js-smell-location">1</a>                  <a href="menu.html#L141" class="js-smell-location">2</a>                  </div>  </li></ol>
+
+    @@stations[select_id_from_array(train.cars)]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@stations'</span>              <span>Locations:</span>                  <a href="menu.html#L39" class="js-smell-location">0</a>                  <a href="menu.html#L139" class="js-smell-location">1</a>                  <a href="menu.html#L141" class="js-smell-location">2</a>                  </div>  </li></ol>
+  end
+
+  def train_car_add<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>Menu#train_car_add has a flog score of 29</span>          </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#train_car_add has approx 9 statements</span>          </div>  </li></ol>
+    train_selected_or_create if @@trains.length.zero?<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Class-Variable.md" target="_blank"><b>ClassVariable</b></a>        </span>      </div>      <span>Menu declares the class variable '@@trains'</span>              <span>Locations:</span>                  <a href="menu.html#L57" class="js-smell-location">0</a>                  <a href="menu.html#L116" class="js-smell-location">1</a>                  <a href="menu.html#L118" class="js-smell-location">2</a>                  <a href="menu.html#L120" class="js-smell-location">3</a>                  <a href="menu.html#L121" class="js-smell-location">4</a>                  <a href="menu.html#L145" class="js-smell-location">5</a>                  </div>  </li></ol>
+    train = train_selected_or_create
+    return train.car_add(CarCargo.new(enter_number { &quot;#{MESSAGE_CAR_ADD_SET_ROUTE} in format: #{Car::NUMBER_FORMAT}&quot; })) if train.type == Train::TYPES[0]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_car_add calls 'train.type' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L147" class="js-smell-location">0</a>                  <a href="menu.html#L149" class="js-smell-location">1</a>                  </div>  </li></ol>
+
+    return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[1]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_car_add calls 'train.type' 2 times</span>              <span>Locations:</span>                  <a href="menu.html#L147" class="js-smell-location">0</a>                  <a href="menu.html#L149" class="js-smell-location">1</a>                  </div>  </li></ol>
+  rescue StandardError =&gt; e<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Uncommunicative-Variable-Name.md" target="_blank"><b>UncommunicativeVariableName</b></a>        </span>      </div>      <span>Menu#train_car_add has the variable name 'e'</span>          </div>  </li></ol>
+    puts e.message
+    train_car_add
+  end
+
+  def train_car_unhook
+    train = train_selected_or_create
+    if train.cars.length.zero?<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_car_unhook calls 'train.cars' 3 times</span>              <span>Locations:</span>                  <a href="menu.html#L157" class="js-smell-location">0</a>                  <a href="menu.html#L161" class="js-smell-location">1</a>                  <a href="menu.html#L162" class="js-smell-location">2</a>                  </div>  </li></ol>
+      return puts MESSAGE_CAR_UNHOOK_FAILED
+
+    else
+      car_id = select_id_from_array(train.cars)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_car_unhook calls 'train.cars' 3 times</span>              <span>Locations:</span>                  <a href="menu.html#L157" class="js-smell-location">0</a>                  <a href="menu.html#L161" class="js-smell-location">1</a>                  <a href="menu.html#L162" class="js-smell-location">2</a>                  </div>  </li></ol>
+      train.cars.delete_at car_id<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#train_car_unhook calls 'train.cars' 3 times</span>              <span>Locations:</span>                  <a href="menu.html#L157" class="js-smell-location">0</a>                  <a href="menu.html#L161" class="js-smell-location">1</a>                  <a href="menu.html#L162" class="js-smell-location">2</a>                  </div>  </li></ol>
+    end
+  end
+
+  def new<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>Menu#new doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
+    Menu.new
+  end
+
+  private
+
+  def select_id_from_array(array)
+    loop do
+      array.iterator
+      str = stty
+      break str.to_i if array.a_to_h[str.to_i]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>Menu#select_id_from_array calls 'str.to_i' 2 times</span>          </div>  </li></ol>
+    end
+  end
+
+  def enter_number
+    puts &quot;#{MESSAGE_NUMBER} #{yield if block_given?}&quot;
+    gets.strip.to_str
+  end
+
+  # TYPES the same for car and Train
+  def type_select<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>Menu#type_select has approx 6 statements</span>          </div>  </li></ol>
+    puts &quot;#{yield if block_given?}#{MESSAGE_TYPE}&quot;
+    str = stty
+    if %w[c с].include?(str)
+      Train::TYPES[0]
+    elsif %w[p з].include?(str)
+      Train::TYPES[1]
+    else
+      type_select { MESSAGE_TYPE_ERROR }
+    end
+  end
+
+  def stty<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>Menu#stty doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
+    state = `stty -g`
+    `stty raw -echo -icanon isig`
+    $stdin.getc.chr
+  ensure
+    `stty #{state}`
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScripts -->
+    <script src="../assets/vendor/javascripts/jquery.min.js"></script>
+    <script src="../assets/vendor/javascripts/jquery.tablesorter.min.js"></script>
+    <script src="../assets/vendor/javascripts/jquery.scrollTo.min.js"></script>
+    <script src="../assets/vendor/javascripts/jquery.timeago.js"></script>
+    <script src="../assets/vendor/javascripts/highcharts.src-4.0.1.js"></script>
+    <script src="../assets/vendor/javascripts/prettify.js"></script>
+    <script src="../assets/vendor/javascripts/bootstrap.min.js"></script>
+    <script src="../assets/javascripts/application.js"></script>
+    <script src="../assets/vendor/javascripts/jquery.filtertable.min.js"></script>
+  </body>
+</html>

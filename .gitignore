@@ -6,3 +6,4 @@ st.txt
 lesson*/run.rb
 lesson*/test.rb
 unused/
+.DS_Store
