@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # require 'spec_helper'
-require './lesson6/train'
-require './lesson6/train_cargo'
+# require './lesson6/train'
+# require './lesson6/train_cargo'
 
 RSpec.describe TrainCargo, type: :model do
   context 'when class attr_reader && initializer works' do

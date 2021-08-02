@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # require 'spec_helper'
-require './lesson6/storage'
+# require './lesson6/storage'
 
 RSpec.describe Storage, type: :model do
   context 'when class attr_reader && initializer works' do

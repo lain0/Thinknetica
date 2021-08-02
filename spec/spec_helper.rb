@@ -13,22 +13,31 @@
 require 'simplecov'
 # Dir["../lesson6/*.rb"].each {|file| require_relative file }
 # p Dir["./lesson6/*.rb"]
-# require_relative '../lesson4/train'
-# require_relative '../lesson4/car'
-# require_relative '../lesson4/car_cargo'
-# require_relative '../lesson4/car_passenger'
-# require_relative '../lesson4/storage'
-# require_relative '../lesson4/menu/helper'
-# require_relative '../lesson4/menu/messages'
 
 # Dir[File.join(".", "**/*.rb")].each { |f| require f unless f[/^\.\/spec\//]}
 # p require_relative '../lesson4/*.rb'
 
 SimpleCov.start do
   add_filter %r{^/spec/}
-  add_group 'Lesson7', ['lesson7', '../../lesson7']
+  add_group 'Lesson7', ['../lesson7/', 'lesson7', '../../lesson7/']
+  # add_group 'Lesson7', ['lesson7', '../../lesson7']
 end
 require 'rspec'
+
+# Dir[File.join(".", "**/*.rb")].each { |f| require f unless f[/^\.\/spec\//]}
+#
+require_relative '../lesson7/train'
+require_relative '../lesson7/train_cargo'
+require_relative '../lesson7/train_passenger'
+require_relative '../lesson7/car'
+require_relative '../lesson7/car_cargo'
+require_relative '../lesson7/car_passenger'
+require_relative '../lesson7/storage'
+require_relative '../lesson7/station.rb'
+require_relative '../lesson7/route.rb'
+require_relative '../lesson7/menu/helper'
+require_relative '../lesson7/menu/messages'
+require_relative '../lesson7/menu'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

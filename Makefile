@@ -8,7 +8,7 @@ rspec:	## rspec
 	bundle exec rspec spec/
 
 menu: #run lesson4 menu
-	./lesson7/mein.rb
+	./lesson7/main.rb
 
 irb:	## run irb
 	irb -I . -r ./lesson3/train.rb ./lesson3/station.rb ./lesson3/route.rb
