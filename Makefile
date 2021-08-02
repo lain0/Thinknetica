@@ -2,16 +2,13 @@ help:           ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 graph:	## make graph shema for Classes and Modules used
-	rubrowser ./lesson6/ >./lesson6/graph.html
+	rubrowser ./lesson7/ >./lesson7/graph.html
 
-lesson3: #run lesson3 menu
-	./lesson3/run.rb
+rspec:	## rspec
+	bundle exec rspec spec/
 
-lesson4-main: ## runrun: ## main
-	./lesson4/main.rb
-
-lesson4: #run lesson4 menu
-	./lesson4/mein.rb
+menu: #run lesson4 menu
+	./lesson7/mein.rb
 
 irb:	## run irb
 	irb -I . -r ./lesson3/train.rb ./lesson3/station.rb ./lesson3/route.rb
