@@ -54,3 +54,7 @@ Style/RedundantSelf:
   Exclude:
     - '*/menu/helper.rb'
 
+# requirement was explicit
+Style/TrivialAccessors:
+  Exclude:
+    - 'lesson*/car_passenger.rb'
