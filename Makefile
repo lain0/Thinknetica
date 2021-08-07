@@ -7,6 +7,9 @@ graph:	## make graph shema for Classes and Modules used
 rspec:	## rspec
 	bundle exec rspec spec/
 
+rspec-short: ## rspec one line
+	bundle exec rspec --format progress spec/
+
 menu: #run lesson4 menu
 	./lesson7/main.rb
 

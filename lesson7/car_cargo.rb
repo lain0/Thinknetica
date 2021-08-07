@@ -2,8 +2,24 @@
 
 # CarCargo
 class CarCargo < Car
-  def initialize(number)
+  attr_reader :volume
+
+  def initialize(number, volume)
     @type = TYPES[0]
     super(number, @type)
+    @volume = volume
+    @volume_occupied = 0
+  end
+
+  def take_volume
+    @volume_occupied += 1
+  end
+
+  def volume_free
+    @volume - @volume_occupied
+  end
+
+  def volume_occupied
+    @volume_occupied
   end
 end
