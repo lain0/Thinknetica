@@ -17,7 +17,10 @@ irb:	## run irb
 	irb -I . -r ./lesson3/train.rb ./lesson3/station.rb ./lesson3/route.rb
 
 train:	## irb one file
-	irb -I . -r ./lesson3/train.rb
+	irb . -r ./lesson7/train.rb
 
 car:	## irb lesson6/car
 	irb -I . -r ./lesson6/car.rb
+
+test:	## irb lesson7/all
+	irb -r ./lesson7/car.rb -r ./lesson7/train.rb -r ./lesson7/station.rb

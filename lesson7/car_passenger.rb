@@ -2,7 +2,7 @@
 
 # CarPassenger
 class CarPassenger < Car
-  attr_reader :seats
+  attr_reader :seats, :seats_occupied
 
   def initialize(number, seats)
     @type = TYPES[1]
@@ -17,9 +17,5 @@ class CarPassenger < Car
 
   def seats_free
     @seats - @seats_occupied
-  end
-
-  def seats_occupied
-    @seats_occupied
   end
 end

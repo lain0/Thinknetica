@@ -31,6 +31,24 @@ RSpec.describe Station, type: :model do
       expect((described_class.private_instance_methods - Class.methods)
         .to_set).to be_superset(%i[validate! validate_number validate_type validate_name].to_set)
     end
+
+    train = Train.new('12345', 'Passenger')
+    it '#receive_train should add train to @trains' do
+      station.receive_train(train)
+      expect(station.trains).to include(train)
+    end
+
+    it '#send_train should remove train from @trains' do
+      station.send_train(train)
+      expect(station.trains).to be_empty
+    end
+
+    it '#each_train' do
+      station.receive_train(train)
+      # expect(station.each_train(&:puts)).to be_truthy
+      # expect(station.each_train(&:puts)).to be_truthy
+      # expect(station.each_train(&:puts)).to be_truthy
+    end
   end
 
   context 'when #valid? name' do

@@ -43,4 +43,8 @@ class Station
   def trains_by_type(type = nil)
     @trains.select { |t| t.type == type }
   end
+
+  def each_train
+    @trains.each(&block)
+  end
 end

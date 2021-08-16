@@ -105,4 +105,8 @@ class Train
     @station = @route.stations[station_id]
     @station.receive_train(self)
   end
+
+  def each_car
+    @cars.each(&block)
+  end
 end
