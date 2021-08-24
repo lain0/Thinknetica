@@ -144,7 +144,9 @@ class Menu < Storage
   def train_car_add
     train_selected_or_create if @@trains.length.zero?
     train = train_selected_or_create
-    return train.car_add(CarCargo.new(enter_number { "#{MESSAGE_CAR_ADD_SET_ROUTE} in format: #{Car::NUMBER_FORMAT}" })) if train.type == Train::TYPES[0]
+    if train.type == Train::TYPES[0]
+      return train.car_add(CarCargo.new(enter_number { "#{MESSAGE_CAR_ADD_SET_ROUTE} in format: #{Car::NUMBER_FORMAT}" }))
+    end
 
     return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[1]
   rescue StandardError => e

@@ -21,7 +21,8 @@ RSpec.describe CarPassenger, type: :model do
     end
 
     it 'include methods: #take_seat #free_seats' do
-      expect((described_class.instance_methods - Class.methods).to_set).to be_superset(%i[take_seat seats_free seats_occupied].to_set)
+      expect((described_class.instance_methods - Class.methods).to_set).to be_superset(%i[take_seat seats_free
+                                                                                          seats_occupied].to_set)
       # expect(described_class.instance_methods.respond_to?(:take_seat)).to be_truthy
     end
 

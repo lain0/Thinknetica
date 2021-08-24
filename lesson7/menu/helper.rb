@@ -12,8 +12,7 @@ module Helper
     end
 
     def intermitiate
-      self - [self.first] - [self.last]
-      # self[1...-1]
+      self[1...-1]
     end
   end
 

@@ -1,4 +1,9 @@
-inherit_from: .rubocop_todo.yml
+# exclude rubocop for last lessons not linted
+inherit_from: .rubocop_lesson6.yml
+
+inherit_mode:
+  merge:
+    - Exclude
 
 require:
   - rubocop-performance
@@ -22,45 +27,48 @@ Style/Documentation:
 # needs for stprage implementation
 Style/ClassVars:
   Exclude:
-    - '*/storage.rb'
-    - '*/station.rb'
-    - '*/modules/instance_counter.rb'
+    - 'lesson7/storage.rb'
+    - 'lesson7/station.rb'
+    - 'lesson7/modules/instance_counter.rb'
 
 # no need in initializer for this class
 Lint/MissingSuper:
   Exclude:
-    - '*/menu.rb'
+    - 'lesson7/menu.rb'
 
 # return is ok there
 Style/RedundantReturn:
   Exclude:
-    - '*/menu.rb'
+    - 'lesson7/menu.rb'
 
 Metrics/ClassLength:
   Exclude:
-    - '*/menu.rb'
+    - 'lesson7/menu.rb'
       # - '*/modules/help.rb'
-
-
-# Offense count: 4
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - '*/menu.rb'
 
 # Offense count: 8
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Exclude:
-    - '*/menu/helper.rb'
-
-# requirement was explicit
-Style/TrivialAccessors:
-  Exclude:
-    #    - 'lesson*/car_passenger.rb'
-    #
+    - 'lesson7/menu/helper.rb'
 
 Metrics/MethodLength:
   Include:
-    - 'lesson*/menu.rb'
+    - 'lesson7/menu.rb'
   Max: 22
+
+Layout/LineLength:
+  Exclude:
+    - 'lesson7/menu.rb'
+    - 'lesson7/menu/messages.rb'
+      # Max: 289
+
+Metrics/AbcSize:
+  Include:
+    - 'lesson7/menu.rb'
+  Max: 28
+
+Metrics/BlockLength:
+  Include:
+    - 'lesson7/menu.rb'
+  Max: 70

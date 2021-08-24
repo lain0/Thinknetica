@@ -85,10 +85,9 @@ class Menu < Storage
     elsif %w[d в].include?(str)
       route = route_selected_or_create
       p "route OK=> #{route}"
-      if route.stations.length == 2
-        return puts MESSAGE_ROUTES_REMOVE_STATIONS_FAILED
+      return puts MESSAGE_ROUTES_REMOVE_STATIONS_FAILED if route.stations.length == 2
 
-      elsif route.stations.length > 2
+      if route.stations.length > 2
         station = route.stations[select_id_from_array(route.stations.intermitiate) + 1]
         return route.remove(station)
       end
@@ -169,13 +168,10 @@ class Menu < Storage
 
   def train_car_unhook
     train = train_selected_or_create
-    if train.cars.length.zero?
-      return puts MESSAGE_CAR_UNHOOK_FAILED
+    return puts MESSAGE_CAR_UNHOOK_FAILED if train.cars.length.zero?
 
-    else
-      car_id = select_id_from_array(train.cars)
-      train.cars.delete_at car_id
-    end
+    car_id = select_id_from_array(train.cars)
+    train.cars.delete_at car_id
   end
 
   def cars_in_trains
@@ -193,23 +189,17 @@ class Menu < Storage
     if train.type == 'Cargo'
       puts "Enter 1 - #{car.volume_free} Number to occupy"
       v = gets.strip.to_i
-      if v < car.volume_free
-        return car.take_volume { v }
+      return car.take_volume { v } if v < car.volume_free
 
-      else
-        puts 'no such space in car'
-      end
+      puts 'no such space in car'
     end
-    if train.type == 'Passenger'
-      puts "Enter 1 - #{car.seats_free} Number to occupy"
-      v = gets.strip.to_i
-      if v < car.seats_free
-        return car.take_seat { v }
+    return unless train.type == 'Passenger'
 
-      else
-        puts 'no such space in car'
-      end
-    end
+    puts "Enter 1 - #{car.seats_free} Number to occupy"
+    v = gets.strip.to_i
+    return car.take_seat { v } if v < car.seats_free
+
+    puts 'no such space in car'
   end
 
   def new
