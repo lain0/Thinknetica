@@ -1,5 +1,7 @@
-# exclude rubocop for last lessons not linted
-inherit_from: .rubocop_lesson6.yml
+inherit_from:
+  - .rubocop_lesson6.yml
+
+# exclude rubocop for ealier lessons (party linted only)
 
 inherit_mode:
   merge:
@@ -44,7 +46,6 @@ Style/RedundantReturn:
 Metrics/ClassLength:
   Exclude:
     - 'lesson7/menu.rb'
-      # - '*/modules/help.rb'
 
 # Offense count: 8
 # Cop supports --auto-correct.
@@ -53,9 +54,9 @@ Style/RedundantSelf:
     - 'lesson7/menu/helper.rb'
 
 Metrics/MethodLength:
-  Include:
+  Exclude:
     - 'lesson7/menu.rb'
-  Max: 22
+      # Max: 22
 
 Layout/LineLength:
   Exclude:
@@ -64,11 +65,8 @@ Layout/LineLength:
       # Max: 289
 
 Metrics/AbcSize:
-  Include:
+  Exclude:
     - 'lesson7/menu.rb'
-  Max: 28
 
 Metrics/BlockLength:
-  Include:
-    - 'lesson7/menu.rb'
-  Max: 70
+  IgnoredMethods: ['describe', 'context']
