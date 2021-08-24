@@ -16,4 +16,11 @@ module Helper
       # self[1...-1]
     end
   end
+
+  # module Kernel
+  #   def puts(object)
+  #     system('clear')
+  #     super(object)
+  #   end
+  # end
 end

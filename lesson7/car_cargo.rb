@@ -7,11 +7,12 @@ class CarCargo < Car
   def initialize(number, volume)
     @type = TYPES[0]
     super(number, @type)
-    @volume = volume
+    @volume = volume.to_i
     @volume_occupied = 0
   end
 
   def take_volume
+    @volume_occupied += yield.to_i if block_given?
     @volume_occupied += 1
   end
 

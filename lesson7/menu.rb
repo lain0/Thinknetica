@@ -27,6 +27,9 @@ class Menu < Storage
       'a' => :train_car_add,
       'u' => :train_car_unhook,
       'l' => :list,
+      'w' => :cars_in_trains,
+      'b' => :trains_on_station,
+      'o' => :occupy_place_in_car,
       'e' => :exit
     }
     menu.default = :new
@@ -144,11 +147,23 @@ class Menu < Storage
   def train_car_add
     train_selected_or_create if @@trains.length.zero?
     train = train_selected_or_create
-    return train.car_add(CarCargo.new(enter_number { "#{MESSAGE_CAR_ADD_SET_ROUTE} in format: #{Car::NUMBER_FORMAT}" })) if train.type == Train::TYPES[0]
+    if train.type == Train::TYPES[0]
+      return train.car_add(CarCargo.new(
+                             enter_number { "#{MESSAGE_CAR_ADD_SET_ROUTE} in format: #{Car::NUMBER_FORMAT}" },
+                             enter_number { MESSAGE_CAR_VOLUME }
+                           ))
 
-    return train.car_add(CarPassenger.new(enter_number { MESSAGE_CAR_ADD_SET_ROUTE })) if train.type == Train::TYPES[1]
+    end
+
+    if train.type == Train::TYPES[1]
+      return train.car_add(CarPassenger.new(
+                             enter_number { MESSAGE_CAR_ADD_SET_ROUTE },
+                             enter_number { MESSAGE_CAR_SEATS }
+                           ))
+
+    end
   rescue StandardError => e
-    puts e.message
+    puts "#{__callee__} #{e.message}"
     train_car_add
   end
 
@@ -160,6 +175,40 @@ class Menu < Storage
     else
       car_id = select_id_from_array(train.cars)
       train.cars.delete_at car_id
+    end
+  end
+
+  def cars_in_trains
+    @@trains.each { |train| train.all_cars { |car| puts car } }
+  end
+
+  def trains_on_station
+    @@stations.each { |station| station.all_trains { |train| puts train } }
+  end
+
+  def occupy_place_in_car
+    puts "#{MESSAGE_TRAIN_SELECT} from #{@@trains}" # if @@trains.length > 1
+    train = @@trains[select_id_from_array(@@trains)]
+    car = train.cars[select_id_from_array(train.cars)]
+    if train.type == 'Cargo'
+      puts "Enter 1 - #{car.volume_free} Number to occupy"
+      v = gets.strip.to_i
+      if v < car.volume_free
+        return car.take_volume { v }
+
+      else
+        puts 'no such space in car'
+      end
+    end
+    if train.type == 'Passenger'
+      puts "Enter 1 - #{car.seats_free} Number to occupy"
+      v = gets.strip.to_i
+      if v < car.seats_free
+        return car.take_seat { v }
+
+      else
+        puts 'no such space in car'
+      end
     end
   end
 

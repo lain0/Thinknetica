@@ -58,3 +58,9 @@ Style/RedundantSelf:
 Style/TrivialAccessors:
   Exclude:
     #    - 'lesson*/car_passenger.rb'
+    #
+
+Metrics/MethodLength:
+  Include:
+    - 'lesson*/menu.rb'
+  Max: 22

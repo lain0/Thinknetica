@@ -44,7 +44,7 @@ class Station
     @trains.select { |t| t.type == type }
   end
 
-  def each_train
-    @trains.each(&block)
+  def all_trains
+    @trains.each { |train| yield "#{train.number} -- #{train.type} -- #{train.cars.count}" }
   end
 end

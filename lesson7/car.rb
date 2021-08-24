@@ -9,7 +9,7 @@ class Car
   include ManufacturerName
   include Validations
   include Types
-  attr_reader :type
+  attr_reader :type, :number
 
   NUMBER_FORMAT = /\d*/.freeze
 

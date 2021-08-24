@@ -12,6 +12,7 @@ class CarPassenger < Car
   end
 
   def take_seat
+    @seats_occupied += yield.to_i if block_given?
     @seats_occupied += 1
   end
 

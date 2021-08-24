@@ -86,6 +86,20 @@ class Train
     @@trains.find { |x| x.number == number }
   end
 
+  def all_cars
+    @cars.each { |car| yield "#{car.number} -- #{car.type} -- #{free_occupied(car)}" }
+  end
+
+  # def all_cars
+  #   @cars.each { |car| yield "#{car.number} -- #{car.type} -- #{free_occupied { car }}" }
+  # end
+
+  # def free_occupied
+  #   return "V free:#{yield.volume_free} V occupied:#{yield.volume_occupied}" if yield.type == 'Cargo'
+
+  #   return "Seats free:#{yield.seats_free} Seats occupied:#{yield.seats_occupied}" if yield.type == 'Passenger'
+  # end
+
   protected  # has sub-classes
 
   def station_id
@@ -106,7 +120,9 @@ class Train
     @station.receive_train(self)
   end
 
-  def each_car
-    @cars.each(&block)
+  def free_occupied(car)
+    return "V free:#{car.volume_free} V occupied:#{car.volume_occupied}" if car.type == 'Cargo'
+
+    return "Seats free:#{car.seats_free} Seats occupied:#{car.seats_occupied}" if car.type == 'Passenger'
   end
 end

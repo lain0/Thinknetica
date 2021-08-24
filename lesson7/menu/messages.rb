@@ -22,6 +22,8 @@ module Messages
   MESSAGE_TRAIN_CURRENT_STATION = 'Current train station is'
   MESSAGE_CAR_ADD_REMOVE = 'Press "a" or "d" to add or remove cars from Train'
   MESSAGE_CAR_ADD_SET_ROUTE = 'of car'
+  MESSAGE_CAR_VOLUME = 'of volume'
+  MESSAGE_CAR_SEATS = 'of seats'
   MESSAGE_CAR_UNHOOK_FAILED = 'No cars in this train, add cars first'
   MESSAGE_SUCCESSFULLY_CREATED = ' was successfully created!'
 end
