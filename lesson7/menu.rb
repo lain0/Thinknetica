@@ -5,7 +5,7 @@ require_relative 'menu/helper'
 require_relative 'menu/messages'
 
 # Menu instance method for every Station/Route/Train
-class Menu < Storage
+class Menu
   include Messages
   Array.include Helper::Array
   attr_reader :str # for exit from main loop by 'e' or 'q'
@@ -36,10 +36,14 @@ class Menu < Storage
     send(menu[@str])
   end
 
+  def list
+    Storage.list
+  end
+
   def station_create
     puts "#{MESSAGE_STATION_NAME} #{yield if block_given?}"
     station = Station.new(gets.strip)
-    @@stations.push(station)
+    Storage.stations.push(station)
     puts "Station #{station}#{MESSAGE_SUCCESSFULLY_CREATED}"
     station
   rescue StandardError => e
@@ -57,7 +61,7 @@ class Menu < Storage
     when Train::TYPES[1]
       train = TrainPassenger.new(number)
     end
-    @@trains.push(train)
+    Storage.trains.push(train)
     puts "Train #{train}#{MESSAGE_SUCCESSFULLY_CREATED}"
     train
   rescue StandardError => e
@@ -69,7 +73,7 @@ class Menu < Storage
     puts MESSAGE_ROUTES_CREATE
     route = Route.new([station_create { 'as station_start' },
                        station_create { 'as station_end' }])
-    @@routes.push(route)
+    Storage.routes.push(route)
     puts "Route #{route}#{MESSAGE_SUCCESSFULLY_CREATED}"
     route
   end
@@ -115,16 +119,16 @@ class Menu < Storage
   end
 
   def train_selected_or_create
-    return train_create { MESSAGE_TRAIN_CREATE } if @@trains.empty?
+    return train_create { MESSAGE_TRAIN_CREATE } if Storage.trains.empty?
 
-    return @@trains[0] if @@trains.length == 1
+    return Storage.trains[0] if Storage.trains.length == 1
 
-    puts "#{MESSAGE_TRAIN_SELECT} from #{@@trains}" # if @@trains.length > 1
-    @@trains[select_id_from_array(@@trains)]
+    puts "#{MESSAGE_TRAIN_SELECT} from #{Storage.trains}" # if Storage.trains.length > 1
+    Storage.trains[select_id_from_array(Storage.trains)]
   end
 
   def route_selected_or_create
-    return route_create { MESSAGE_ROUTES_CREATE } if @@routes.empty?
+    return route_create { MESSAGE_ROUTES_CREATE } if Storage.routes.empty?
 
     puts MESSAGE_ROUTES_CREATE_OR_SELECT
     case stty
@@ -132,19 +136,19 @@ class Menu < Storage
       return route_create { MESSAGE_ROUTES_CREATE }
 
     when 's'
-      route_id = select_id_from_array(@@routes)
-      @@routes[route_id]
+      route_id = select_id_from_array(Storage.routes)
+      Storage.routes[route_id]
     end
   end
 
   def stations_select_or_create
-    return station_create { MESSAGE_STATION_NAME } if @@stations.empty?
+    return station_create { MESSAGE_STATION_NAME } if Storage.stations.empty?
 
-    @@stations[select_id_from_array(train.cars)]
+    Storage.stations[select_id_from_array(train.cars)]
   end
 
   def train_car_add
-    train_selected_or_create if @@trains.length.zero?
+    train_selected_or_create if Storage.trains.length.zero?
     train = train_selected_or_create
     if train.type == Train::TYPES[0]
       return train.car_add(CarCargo.new(
@@ -175,16 +179,16 @@ class Menu < Storage
   end
 
   def cars_in_trains
-    @@trains.each { |train| train.all_cars { |car| puts car } }
+    Storage.trains.each { |train| train.all_cars { |car| puts car } }
   end
 
   def trains_on_station
-    @@stations.each { |station| station.all_trains { |train| puts train } }
+    Storage.stations.each { |station| station.all_trains { |train| puts train } }
   end
 
   def occupy_place_in_car
-    puts "#{MESSAGE_TRAIN_SELECT} from #{@@trains}" # if @@trains.length > 1
-    train = @@trains[select_id_from_array(@@trains)]
+    puts "#{MESSAGE_TRAIN_SELECT} from #{Storage.trains}" # if Storage.trains.length > 1
+    train = Storage.trains[select_id_from_array(Storage.trains)]
     car = train.cars[select_id_from_array(train.cars)]
     if train.type == 'Cargo'
       puts "Enter 1 - #{car.volume_free} Number to occupy"
