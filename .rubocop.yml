@@ -29,7 +29,6 @@ Style/Documentation:
 # needs for stprage implementation
 Style/ClassVars:
   Exclude:
-    - 'lesson7/storage.rb'
     - 'lesson7/station.rb'
     - 'lesson7/modules/instance_counter.rb'
 
